@@ -57,10 +57,10 @@ export async function login(req, res) {
     // Send refresh token as httpOnly cookie
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: false, // Set to true in production (requires HTTPS)
-      sameSite: 'Strict',
+      secure: true, // Set to true in production (requires HTTPS)
+      sameSite: 'None',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      credentials: 'include'
+      // credentials: 'include'
 
     });
 
@@ -86,7 +86,7 @@ export function logout(req, res) {
   res.clearCookie('refreshToken', {
     httpOnly: true,
     secure: true,
-    sameSite: 'Strict',
+    sameSite: 'None',
   });
   res.status(200).json({ message: 'Logged out successfully' });
   // res.json({ message: 'Logged out successfully' });
