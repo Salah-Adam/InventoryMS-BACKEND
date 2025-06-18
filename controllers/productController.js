@@ -6,7 +6,8 @@ import {
     updateProduct,
     toggleProductStatus,
     findProductByName, 
-    getAllProductNames
+    getAllProductNames,
+    findUnitCost
     } from '../models/productDB.js';
     
     // Create a new product
@@ -70,6 +71,20 @@ import {
     }
     }
 
+
+
+        export async function getUnitCost(req, res) {
+    try {
+        const { name } = req.params;
+        const product = await findUnitCost(name);
+        if (product.length === 0) {
+        return res.status(404).json({ message: 'Product not found' });
+        }
+        res.json(product[0]); // Return only the first match
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+    }
 
 
     export async function getProductNames(req, res) {

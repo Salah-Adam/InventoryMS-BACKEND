@@ -11,7 +11,8 @@ import {
   updateProductController,
   toggleProductActivation,
   getProductByName,
-  getProductNames
+  getProductNames,
+  getUnitCost
 } from '../controllers/productController.js';
 
 import { authenticateToken } from '../middlewares/authMiddleware.js'; // ✅ Import middleware
@@ -26,6 +27,10 @@ router.get('/', getProducts);
 
 // Find product by name
 router.get('/search/:name', getProductByName);
+
+// find unit cost
+router.get('/search/unitCost/:name', getUnitCost);
+
 
 // Get product names (maybe for dropdowns or autocomplete)
 router.get('/productNames', getProductNames);

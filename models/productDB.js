@@ -47,6 +47,18 @@ export async function findProductByName(name) {
 }
 
 
+// Find product by name (partial or exact match)
+export async function findUnitCost(name) {
+  const [rows] = await pool.query(
+    'SELECT * FROM products WHERE product_name = ?',
+    [name]
+  );
+  console.log("rows: ", rows)
+  return rows;
+}
+
+
+
 export async function getAllProductNames() {
   const [rows] = await pool.query('SELECT product_name FROM products where is_active = 1');
   return rows;
