@@ -58,14 +58,14 @@ export const insertOrder = async (units, total, paid, discount, createdBy, custo
   const [result] = await pool.query(
     `INSERT INTO orders (customer_id, total_units_sold, total_price, paid, discount, rest, sales_status, created_by) 
      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-    [customerId, units, total, paid, discount, rest, status, createdBy]
+    [customerId, units, total, paid + 0.00, discount + 0.00, rest + 0.00, status, createdBy]
   );
   return result.insertId;
 };
 
 export const insertSales = async (salesArray) => {
 
-  const values = salesArray.map(sale => [sale.order_id, sale.product_name, sale.units_sold, sale.total_price, sale.created_by]);
+  const values = salesArray.map(sale => [sale.order_id, sale.product_name, sale.units_sold, sale.total_price + 0.00, sale.created_by]);
   await pool.query(
     `INSERT INTO sales (order_id, product_name, units_sold, total_price, created_by) VALUES ?`,
     [values]
