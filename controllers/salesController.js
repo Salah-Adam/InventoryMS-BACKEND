@@ -23,8 +23,8 @@ export const addSales = async (req, res) => {
       created_by: createdBy
     }));
 
-    salesres =await SalesDB.insertSales(salesToInsert);
-    console.log("sales res: ", salesres);
+    await SalesDB.insertSales(salesToInsert);
+    
 
     res.status(201).json({ message: 'Sales added successfully.' });
   } catch (error) {
