@@ -73,13 +73,13 @@ export const insertSales = async (salesArray) => {
 
 for (const sale of salesArray) {
   await pool.query(
-    `UPDATE Products SET stock_units = stock_units - ? WHERE product_name = ?`,
+    `UPDATE products SET stock_units = stock_units - ? WHERE product_name = ?`,
     [sale.units_sold, sale.product_name]
   );
 
 //   If stock reaches 0, set is_active = FALSE
   await pool.query(
-      `UPDATE Products SET is_active = 0 WHERE stock_units <= 0 AND product_name = ?`,
+      `UPDATE products SET is_active = 0 WHERE stock_units <= 0 AND product_name = ?`,
       [sale.product_name]
   );
 
@@ -106,7 +106,7 @@ export const updateStock4OldProduct = async(orderId) => {
   // console.log("older sale: ", older_sale);
 for (const sale of older_sale) {
   await pool.query(
-    `UPDATE Products SET stock_units = stock_units + ? WHERE product_name = ?`,
+    `UPDATE products SET stock_units = stock_units + ? WHERE product_name = ?`,
     [sale.units_sold, sale.product_name]
   );
 };
@@ -149,12 +149,12 @@ const [oldSales_createdTime] = await pool.query(
 
 for (const newSale of salesData) {
   await pool.query(
-    `UPDATE Products SET stock_units = stock_units - ? WHERE product_name = ?`,
+    `UPDATE products SET stock_units = stock_units - ? WHERE product_name = ?`,
     [newSale.units_sold, newSale.product_name]
   );
 
   await pool.query(
-      `UPDATE Products SET is_active = 0 WHERE stock_units = 0 AND product_name = ?`,
+      `UPDATE products SET is_active = 0 WHERE stock_units = 0 AND product_name = ?`,
       [newSale.product_name]
   );
 };
